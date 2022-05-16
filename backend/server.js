@@ -19,7 +19,7 @@ app.use(express.json());
 // })
 
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, { useUnifiedTopology: true } 
+mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true,} 
 );
 
 const connection = mongoose.connection;
@@ -28,6 +28,12 @@ connection.once('open', () => {
 } )
 
 
+
+const exercisesRouter = require('./routes/excercises');
+const usersRouter = require('./routes/users');
+
+app.use('/exercises', exercisesRouter);
+app.use('/users', usersRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
